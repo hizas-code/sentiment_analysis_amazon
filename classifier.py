@@ -1,0 +1,3 @@
+import nltk
+from feature_extraction import feature_extraction
+from nltk import NaiveBayesClassifier
