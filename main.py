@@ -11,22 +11,16 @@ def learning():
     for rating in ratings :
         if rating >= 2.5 : labels.append('positive')
         else : labels.append('negative')
-    data_train = ([(label, review) for label,review in zip(labels,reviews)])
-    data_train = nltk.classify.apply_features(feature_extraction, data_train)
-    classifier = NaiveBayesClassifier.train(data_train)
+    data_train = ([(review, label) for review,label in zip(reviews,labels)])
+    feature_sets = [(feature_extraction(data), label) for (data,label) in data_train]
+    classifier = NaiveBayesClassifier.train(feature_sets)
     return classifier
 
 def main():
     classifier = learning()
     testing_string = 'I really like this'
-
-    data = tokenizing(testing_string)
-    feature = feature_extraction(('positive',data))
-
-    prob = classifier.prob_classify(feature)
+    prob = classifier.classify(feature_extraction(testing_string))
     print(prob)
-    labels = prob.samples()
-    print(labels)
 
 if __name__ == '__main__':
     main()

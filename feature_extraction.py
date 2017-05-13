@@ -1,9 +1,7 @@
 
 def feature_extraction(data):
 	features = {}
-	topic =  data[0]
-	words = data[1]
-	features['topic'] = topic
+	words = data
 	words = negate_sequence(words)
 	words = set(words)
 	for word in words :
