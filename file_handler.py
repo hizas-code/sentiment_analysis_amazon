@@ -10,7 +10,7 @@ def get_data(path,key) :
     return result
 
 def get_data_2(path):
-    result = []
+    result = {}
     dataset = open(path)
     for data in dataset :
         split = re.findall('\'title\': \'.*?(?=\')\'', data)
