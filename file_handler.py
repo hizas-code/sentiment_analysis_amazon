@@ -9,13 +9,21 @@ def get_data(path,key) :
         result.append(json_review[key])
     return result
 
-def get_data_2(path):
-    result = []
+def get_product(path):
+    result = {}
     dataset = open(path)
     for data in dataset :
         split = re.findall('\'title\': \'.*?(?=\')\'', data)
         value = str(split)[12:-3]
         split = re.findall('{\'asin\': \'.*?(?=\')\'', data)
         key = str(split)[12:-3]
-        result[key] = value
+        result[value] = key
+    return result
+
+def get_review(path):
+    result = {}
+    dataset = open(path)
+    for data in dataset :
+        json_review = json.loads(data)
+        result[json_review['asin']] = json_review['reviewText']
     return result

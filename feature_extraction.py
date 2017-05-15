@@ -1,11 +1,13 @@
+from nltk import pos_tag
+from preprocess import tokenizing
 
-def feature_extraction(data):
+def feature_extraction(words):
 	features = {}
-	words = data
-	words = negate_sequence(words)
-	words = set(words)
-	for word in words :
-		features[word] = word in words
+	tokens = tokenizing(words)
+	adjectives = get_adjective(tokens)
+	adjectives = set(adjectives)
+	for adjective in adjectives :
+		features[adjective] = adjective in adjectives
 	return features
 
 def negate_sequence(tokens):
@@ -22,6 +24,20 @@ def negate_sequence(tokens):
 		if any(c in word for c in delims):
 			binerNegation = False
 	return result
+
+def get_adjective(tokens):
+	tagger = pos_tag(tokens)
+	adjectives = []
+	negated_word = negate_sequence(tokens)
+	for (word,tag),negate_word in zip(tagger,negated_word) :
+		if tag in adjective_tag : adjectives.append(negate_word)
+	return adjectives
+
+adjective_tag = [
+	"JJ",
+	"JJS",
+	"JJR"
+]
 
 negation = [
 	'no',
