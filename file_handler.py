@@ -1,7 +1,7 @@
 import re
 import json
 
-def get_data(path,key) :
+def get_data(path,key):
     result = []
     dataset = open(path)
     for current_data in dataset:
@@ -9,7 +9,7 @@ def get_data(path,key) :
         result.append(json_review[key])
     return result
 
-def get_product(path):
+def get_data_2(path):
     result = {}
     dataset = open(path)
     for data in dataset :
